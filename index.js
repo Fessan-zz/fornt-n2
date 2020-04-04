@@ -18,12 +18,17 @@ function readFile(input) {
     const textToJson = JSON.parse(textJson);
     
     console.log(htmlBuilder(textToJson));
+    const result = htmlBuilder(textToJson);
+
+    document.write(result);
 
   };
 
   reader.onerror = function() {
     console.log(reader.error);
   };
+
+  
 
 }
 
@@ -33,14 +38,31 @@ const htmlBuilder = (obj) => {
 //console.log(fields, 'fields', references, 'references', buttons, 'buttons');
   let strResult = "";
   strResult += `<h1>${name}</h1><br>`;
+
+  
   //console.log(fields.length);
   if(fields) {
-    fields.forEach(({ label, input}) => {
-      strResult += `<label> ${label} </label><br>`;
+    fields.forEach(({ label, input }) => {
+      if (label){
+        strResult += `<label>${label}</label>`;
+      }
       const entries = Object.entries(input);
-      strResult += `<input type=\"${entries[0][1]}\" ${entries[1][0]} placeholder =\"${entries[2][1]}\"</input><br>`
+      strResult += `<input`;
+      //console.log(entries);
+      const [firstItem, lastItem] = entries;
+      //console.log(firstItem,'!!!!!', lastItem);
+      entries.forEach(([ firstItem, lastItem ]) =>{
+        //console.log(firstItem,'!!!!!', lastItem);
+        if(firstItem === 'required' && lastItem === true){
+          strResult += ` required`;
+        }
+        if (firstItem !== 'required'){
+          strResult += ` ${firstItem}=\"${lastItem}\"`
+        }
+      })
+      strResult +=` </input><br>`;
     })
-  }
+ 
   if(references){
     //console.log(references);
     references.forEach(({ text, ref }) => {
@@ -48,14 +70,16 @@ const htmlBuilder = (obj) => {
     })
   }
 
-  if(buttons) {
+   if(buttons) {
     buttons.forEach(({ text }) => {
       strResult += `<button>${text}</button>`
     })
   }
+
   //console.log(strResult);
 
   return strResult;
 }
 
+}
 

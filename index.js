@@ -30,6 +30,12 @@ const htmlBuilder = (obj) => {
   const fieldStr = fieldHtml(fields);
   str += fieldStr;
 
+  const referStr = referHtml(references);
+  str += referStr;
+
+  const strBtn = btnHtml(buttons);
+  str += strBtn;
+
 
   let formResult = document.createElement('form');
   formResult.innerHTML = str;
@@ -40,7 +46,7 @@ const htmlBuilder = (obj) => {
 
 };
 
-
+//// fields
 const fieldHtml = (fields) => {
  let str = "";
 
@@ -97,8 +103,53 @@ const fieldHtml = (fields) => {
     str += `><br>`
   }
  })
- console.log(str);
  return str;
+}
+
+/////////////// refer
+const referHtml = (ref) => {
+  let str = "";
+  if (ref) {
+     ref.forEach((item) => { 
+    if(item.input) {
+      const entries = Object.entries(item.input);
+      str += `<input `;
+      entries.forEach(([ firstItem, lastItem ]) => {
+        if (lastItem === 'checkbox') {
+          str += `type=\"checkbox\"`;
+        } else if (firstItem === 'required' && lastItem === true) {
+          str += ` ${firstItem} `;
+        } else if (firstItem === 'checked' && lastItem === true){
+          str += ` checked `;
+        }
+      })
+      str += `><br>`;
+    } else {
+      const { 'text without ref': firstText, text, ref } = item;
+      if (firstText) {
+        str += `<span>${firstText}  </span>`;
+      }
+      if (ref) {
+        str += `<a href=\"${ref}\">`
+      }
+      if (text) {
+        str += `${text}</a><br>`;
+      }
+    }
+  })
+  }
+ 
+  return str;
+}
+
+const btnHtml = (btn) => {
+  let str = "";
+  if(btn) {
+    btn.forEach(({ text }) => {
+      str += `<button>${text}</button>`
+    })
+  }
+  return str;
 }
 
 

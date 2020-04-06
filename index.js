@@ -48,31 +48,53 @@ const fieldHtml = (fields) => {
   
 
   if (label) {
-    str += `<label>${label}</label><br>`;
+    str += `<label>${label}</label>`;
   }
 
   if(input) {
     const entries = Object.entries(input);
+    str += `<input `
     entries.forEach(([ firstItem, lastItem ]) => {
-
-      if (firstItem === 'type' && lastItem === 'color'){
-        str += `<input  type=\"color\"`;
-        
-      }else if (firstItem === 'colors' && typeof lastItem == 'object'){
-          str += `list=\"color\">`;
-          str += `<datalist id=\"color\">`;
-          lastItem.forEach((item) => {
-            str += `<option value=\"${item}\">`;
-          })
-          str += `</datalist>`;
-       } 
-
-       if (firstItem === 'type' && lastItem === 'checkbox') {
-         str+= `<input type=\"checkbox\">`;
-        
-       }
-        
+     if (firstItem === 'colors') {
+       str += ` type =\"color\"  list=\"color\"> <datalist id=\"color\">`;
+       lastItem.forEach((item) => {
+         str += `<option value=\"${item}\">`
+       })
+       str += `</datalist`;
+     }else if (lastItem === 'text' || lastItem === 'password') {
+      str += ` ${firstItem}=\"${lastItem}\"`
+      }else if (firstItem === 'placeholder'){
+        str += `placeholder=\"${lastItem}\"`
+      }else if (firstItem === 'required' && lastItem === true) {
+        str += ` ${firstItem} `;
+      } else if (firstItem === 'type' && lastItem === 'checkbox') {
+        str += ` type=\"${lastItem}\"`;
+      } else if (firstItem === 'checked' && lastItem === true){
+        str += ` checked `;
+      } else if (lastItem === 'number') {
+        str += ` type=\"number\"`;
+      } else if (firstItem === 'multiple' && lastItem === true){
+        str += ` multiple`
+      } else if (firstItem === 'technologies') {
+        str += ` type =\"text\" list=\"tech\"> <datalist id=\"tech\">`;
+        lastItem.forEach((item) => {
+          str += `<option value=\"${item}\">`
+        })
+        str += `</datalist`;
+      } else if (lastItem === 'file') {
+        str += `type=\"file\"`;
+      } else if (firstItem === 'filetype') {
+        str += ` accept=\"`
+        lastItem.forEach((item) => {
+          str += `${item},`
+        })
+        str += `\"`;
+      } else if (lastItem === 'date') {
+        str += `type=\"date\"`;
+      }
+     
     })
+    str += `><br>`
   }
  })
  console.log(str);

@@ -11,7 +11,9 @@ function readFile(input) {
     const textToJson = JSON.parse(textJson);
       
     htmlBuilder(textToJson);
-    $('input[name="mobphone"]').mask('+0 (000) 000 00 00', {placeholder: "+_ (___) ___ __ __"});
+    $('input[name="mobphone"]').mask('+0 (000) 000 00 00', {placeholder: "+7 (999) 99-99-999"});
+    $('input[name="serial"]').mask('00-00 000000', {placeholder: "99-99 999999"});
+    $('input[name="code"]').mask('000-000', {placeholder: "999-999"});
   };
 
   reader.onerror = function () {
@@ -79,8 +81,12 @@ const fieldHtml = (fields) => {
         str += ` type=\"${lastItem}\"`;
       } else if (firstItem === 'checked' && lastItem === true){
         str += ` checked `;
-      } else if (lastItem === 'number') {
-        str += ` type=\"number\"`;
+      } else if (lastItem === 'number' && label === 'Введите Номер телефона') {
+        str += ` type=\"text\"`;
+      } else if (lastItem === 'number' && label === 'Серия, номер') {
+        str += ` type=\"text\"`;
+      } else if (lastItem === 'number' && label === 'Код подразделения') {
+        str += ` type=\"text\"`;
       } else if (firstItem === 'multiple' && lastItem === true){
         str += ` multiple`
       } else if (firstItem === 'technologies') {
@@ -101,6 +107,10 @@ const fieldHtml = (fields) => {
         str += `type=\"date\"`;
       } else  if (firstItem === 'mask' && lastItem === '+7 (999) 99-99-999') {
         str += ` name=\"mobphone\"`
+      } else  if (firstItem === 'mask' && lastItem === '99-99 999999') {
+        str += ` name=\"serial\"`
+      } else  if (firstItem === 'mask' && lastItem === '999-999') {
+        str += ` name=\"code\"`
       }
      
     })

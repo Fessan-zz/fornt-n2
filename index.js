@@ -4,23 +4,23 @@ function readFile(input) {
   let reader = new FileReader();
 
   reader.readAsText(file);
-
-
-
   reader.onload = function () {
-
+    
     const textJson = reader.result;
 
     const textToJson = JSON.parse(textJson);
-
+      
     htmlBuilder(textToJson);
-
+    $('input[name="mobphone"]').mask('+0 (000) 000 00 00', {placeholder: "+_ (___) ___ __ __"});
   };
 
   reader.onerror = function () {
     console.log(reader.error);
   };
+
+
 }
+
 
 const htmlBuilder = (obj) => {
   const { name, fields, references, buttons } = obj;
@@ -45,6 +45,8 @@ const htmlBuilder = (obj) => {
   
 
 };
+
+
 
 //// fields
 const fieldHtml = (fields) => {
@@ -97,12 +99,15 @@ const fieldHtml = (fields) => {
         str += `\"`;
       } else if (lastItem === 'date') {
         str += `type=\"date\"`;
+      } else  if (firstItem === 'mask' && lastItem === '+7 (999) 99-99-999') {
+        str += ` name=\"mobphone\"`
       }
      
     })
     str += `><br>`
   }
  })
+ console.log(str);
  return str;
 }
 

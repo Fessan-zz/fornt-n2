@@ -29,6 +29,7 @@ const htmlBuilder = (obj) => {
   let str = "";
   str += `<h1>${name}</h1><br>`;
 
+  str += `<div class=\"form-group\">`
   const fieldStr = fieldHtml(fields);
   str += fieldStr;
 
@@ -37,9 +38,11 @@ const htmlBuilder = (obj) => {
 
   const strBtn = btnHtml(buttons);
   str += strBtn;
-
+  str += `</div>`
 
   let formResult = document.createElement('form');
+
+  formResult.classList.add("d-flex", "justify-content-center", "align-items-center", "flex-column");
   formResult.innerHTML = str;
   const form = document.querySelector('div');
   form.appendChild(formResult);
@@ -71,32 +74,32 @@ const fieldHtml = (fields) => {
          str += `<option value=\"${item}\">`
        })
        str += `</datalist`;
-     }else if (lastItem === 'text' || lastItem === 'password') {
-      str += ` ${firstItem}=\"${lastItem}\"`
-      }else if (firstItem === 'placeholder'){
+     }else if (lastItem === 'text' || lastItem === 'password' || lastItem === 'email' || lastItem === 'number' || lastItem === 'textarea') {
+      str += ` ${firstItem}=\"${lastItem}\" class=\"form-control \"`
+      } else if (firstItem === 'placeholder'){
         str += `placeholder=\"${lastItem}\"`
       }else if (firstItem === 'required' && lastItem === true) {
         str += ` ${firstItem} `;
       } else if (firstItem === 'type' && lastItem === 'checkbox') {
-        str += ` type=\"${lastItem}\"`;
+        str += ` type=\"${lastItem}\" `;
       } else if (firstItem === 'checked' && lastItem === true){
         str += ` checked `;
       } else if (lastItem === 'number' && label === 'Введите Номер телефона') {
-        str += ` type=\"text\"`;
+        str += ` type=\"text\" class=\"form-control \"`;
       } else if (lastItem === 'number' && label === 'Серия, номер') {
-        str += ` type=\"text\"`;
+        str += ` type=\"text\" class=\"form-control \"`;
       } else if (lastItem === 'number' && label === 'Код подразделения') {
-        str += ` type=\"text\"`;
+        str += ` type=\"text\" class=\"form-control \"`;
       } else if (firstItem === 'multiple' && lastItem === true){
         str += ` multiple`
       } else if (firstItem === 'technologies') {
-        str += ` type =\"text\" list=\"tech\"> <datalist id=\"tech\">`;
+        str += ` type =\"text\" class=\"form-control\ " list=\"tech\"> <datalist id=\"tech\">`;
         lastItem.forEach((item) => {
           str += `<option value=\"${item}\">`
         })
         str += `</datalist`;
       } else if (lastItem === 'file') {
-        str += `type=\"file\"`;
+        str += `type=\"file\" class=\"form-control \"`;
       } else if (firstItem === 'filetype') {
         str += ` accept=\"`
         lastItem.forEach((item) => {
@@ -104,7 +107,7 @@ const fieldHtml = (fields) => {
         })
         str += `\"`;
       } else if (lastItem === 'date') {
-        str += `type=\"date\"`;
+        str += `type=\"date\" class=\"form-control \"`;
       } else  if (firstItem === 'mask' && lastItem === '+7 (999) 99-99-999') {
         str += ` name=\"mobphone\"`
       } else  if (firstItem === 'mask' && lastItem === '99-99 999999') {
@@ -131,7 +134,7 @@ const referHtml = (ref) => {
       str += `<input `;
       entries.forEach(([ firstItem, lastItem ]) => {
         if (lastItem === 'checkbox') {
-          str += `type=\"checkbox\"`;
+          str += `type=\"checkbox\" `;
         } else if (firstItem === 'required' && lastItem === true) {
           str += ` ${firstItem} `;
         } else if (firstItem === 'checked' && lastItem === true){
@@ -161,61 +164,9 @@ const btnHtml = (btn) => {
   let str = "";
   if(btn) {
     btn.forEach(({ text }) => {
-      str += `<button>${text}</button>`
+      str += `<button class=\"btn\ mr-3 btn-primary">${text}</button>`
     })
   }
   return str;
 }
 
-
-
-
-// const htmlBuilder = (obj) => {
-//   const { name, fields, references, buttons} = obj;
-// //console.log(fields, 'fields', references, 'references', buttons, 'buttons');
-//   let strResult = "";
-//   strResult += `<h1>${name}</h1><br>`;
-
-
-//   //console.log(fields.length);
-//   if(fields) {
-//     fields.forEach(({ label, input }) => {
-//       if (label){
-//         strResult += `<label>${label}</label>`;
-//       }
-//       const entries = Object.entries(input);
-//       strResult += `<input`;
-//       //console.log(entries);
-//       const [firstItem, lastItem] = entries;
-//       //console.log(firstItem,'!!!!!', lastItem);
-//       entries.forEach(([ firstItem, lastItem ]) =>{
-//         //console.log(firstItem,'!!!!!', lastItem);
-//         if(firstItem === 'required' && lastItem === true){
-//           strResult += ` required`;
-//         }
-//         if (firstItem !== 'required'){
-//           strResult += ` ${firstItem}=\"${lastItem}\"`
-//         }
-//       })
-//       strResult +=` </input><br>`;
-//     })
-
-//   if(references){
-//     //console.log(references);
-//     references.forEach(({ text, ref }) => {
-//       strResult += `<a href=\"${ref}\">${text}</a><br>`;
-//     })
-//   }
-
-//    if(buttons) {
-//     buttons.forEach(({ text }) => {
-//       strResult += `<button>${text}</button>`
-//     })
-//   }
-
-//   //console.log(strResult);
-
-//   return strResult;
-// }
-
-// }

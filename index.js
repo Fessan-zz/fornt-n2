@@ -74,7 +74,7 @@ const fieldHtml = (fields) => {
          str += `<option value=\"${item}\">`
        })
        str += `</datalist`;
-     }else if (lastItem === 'text' || lastItem === 'password' || lastItem === 'email' || lastItem === 'number' || lastItem === 'textarea') {
+     }else if (lastItem === 'text' || lastItem === 'password' || lastItem === 'email'|| lastItem === 'textarea') {
       str += ` ${firstItem}=\"${lastItem}\" class=\"form-control \"`
       } else if (firstItem === 'placeholder'){
         str += `placeholder=\"${lastItem}\"`
@@ -84,6 +84,8 @@ const fieldHtml = (fields) => {
         str += ` type=\"${lastItem}\" `;
       } else if (firstItem === 'checked' && lastItem === true){
         str += ` checked `;
+      } else if (lastItem === 'number' ) {
+        
       } else if (lastItem === 'number' && label === 'Введите Номер телефона') {
         str += ` type=\"text\" class=\"form-control \"`;
       } else if (lastItem === 'number' && label === 'Серия, номер') {
@@ -93,7 +95,7 @@ const fieldHtml = (fields) => {
       } else if (firstItem === 'multiple' && lastItem === true){
         str += ` multiple`
       } else if (firstItem === 'technologies') {
-        str += ` type =\"text\" class=\"form-control\ " list=\"tech\"> <datalist id=\"tech\">`;
+        str += ` type =\"text\" class=\"form-control\" list=\"tech\"> <datalist id=\"tech\">`;
         lastItem.forEach((item) => {
           str += `<option value=\"${item}\">`
         })

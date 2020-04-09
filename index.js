@@ -61,7 +61,7 @@ const fieldHtml = (fields) => {
   
 
   if (label) {
-    str += `<label>${label}</label>`;
+    str += `<label class=\"m-3\">${label}</label>`;
   }
 
   if(input) {
@@ -98,11 +98,12 @@ const fieldHtml = (fields) => {
       } else if (firstItem === 'multiple' && lastItem === true){
         str += ` multiple`
       } else if (firstItem === 'technologies') {
-        str += ` type =\"text\" class=\"form-control\" list=\"tech\"> <datalist id=\"tech\">`;
+        str += ` type =\"text\" class=\"d-none\" >
+         <select class=\"custom-select\" multiple size=\"3\">`;
         lastItem.forEach((item) => {
-          str += `<option value=\"${item}\">`
+          str += `<option value=\"${item}\"> ${item} `
         })
-        str += `</datalist`;
+        str += `</select`;
       } else if (lastItem === 'file') {
         str += `type=\"file\" class=\"form-control \"`;
       } else if (firstItem === 'filetype') {

@@ -84,9 +84,12 @@ const fieldHtml = (fields) => {
         str += ` type=\"${lastItem}\" `;
       } else if (firstItem === 'checked' && lastItem === true){
         str += ` checked `;
-      } else if (lastItem === 'number' ) {
-        
-      } else if (lastItem === 'number' && label === 'Введите Номер телефона') {
+      } else if (lastItem === 'number' && label === 'Введите свой возраст') {
+        str +=  `type=\"number\" class=\"form-control \"`;
+      } else if (lastItem === 'number' && label === 'Ваш срок работы') {
+        str +=  `type=\"number\" class=\"form-control \"`;
+      } 
+      else if (lastItem === 'number' && label === 'Введите Номер телефона') {
         str += ` type=\"text\" class=\"form-control \"`;
       } else if (lastItem === 'number' && label === 'Серия, номер') {
         str += ` type=\"text\" class=\"form-control \"`;

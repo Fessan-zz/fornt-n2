@@ -46,9 +46,7 @@ const htmlBuilder = (obj) => {
   formResult.innerHTML = str;
   const form = document.querySelector('div');
   form.appendChild(formResult);
-
   
-
 };
 
 
@@ -74,11 +72,11 @@ const fieldHtml = (fields) => {
          str += `<option value=\"${item}\">`
        })
        str += `</datalist`;
-     }else if (lastItem === 'text' || lastItem === 'password' || lastItem === 'email') {
+     }else if (lastItem === 'text' || lastItem === 'password' || lastItem === 'email'|| lastItem === 'textarea') {
       str += ` ${firstItem}=\"${lastItem}\" class=\"form-control \"`
       } else if (firstItem === 'placeholder'){
         str += `placeholder=\"${lastItem}\"`
-      } else if (firstItem === 'required' && lastItem === true) {
+      }else if (firstItem === 'required' && lastItem === true) {
         str += ` ${firstItem} `;
       } else if (firstItem === 'type' && lastItem === 'checkbox') {
         str += ` type=\"${lastItem}\" `;
@@ -88,9 +86,8 @@ const fieldHtml = (fields) => {
         str +=  `type=\"number\" class=\"form-control \"`;
       } else if (lastItem === 'number' && label === 'Ваш срок работы') {
         str +=  `type=\"number\" class=\"form-control \"`;
-      } else if (lastItem === 'textarea') {
-        str +=  ` class=\"d-none\"><textarea class=\"form-control \" rows=\"3\"></textarea`;
-      }  else if (lastItem === 'number' && label === 'Введите Номер телефона') {
+      } 
+      else if (lastItem === 'number' && label === 'Введите Номер телефона') {
         str += ` type=\"text\" class=\"form-control \"`;
       } else if (lastItem === 'number' && label === 'Серия, номер') {
         str += ` type=\"text\" class=\"form-control \"`;
